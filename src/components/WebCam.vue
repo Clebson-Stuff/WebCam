@@ -1,7 +1,7 @@
 <template>
-  <div v-on:load="loadCamera()" class="WebCam">
+  <div class="WebCam">
       <button v-on:click="loadCamera()">Camera</button>
-      <video autoplay="true" id="webCamera"></video>
+      <video autoplay="true" ref="Cam" id="webCamera"></video>
   </div>
 </template>
 
@@ -12,16 +12,13 @@ export default {
     msg: String
   },methods:{
       loadCamera : function(){
-            var video = document.querySelector("webCamera");
-                ///video.setAttribute('autoplay', '');
-                //video.setAttribute('muted', '');
-                //video.setAttribute('playsinline', '');
+            var video = this.$refs.Cam;
+                video.setAttribute('autoplay', '');
+                video.setAttribute('muted', '');
+                video.setAttribute('playsinline', '');
             if  (navigator.mediaDevices.getUserMedia) {
-                // eslint-disable-next-line no-console
-                console.log("Chegou aqui");
-
                 navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'user'}})
-                .then( function(stream) {
+                .then(stream => {
                     video.srcObject = stream;
                 })
                 .catch(error => {
@@ -29,6 +26,10 @@ export default {
                 });
             }
       }
+  }, mounted: function(){
+        this.$nextTick(function () {
+            this.loadCamera();
+        });
   }
 }
 </script>
