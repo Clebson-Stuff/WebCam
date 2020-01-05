@@ -1,7 +1,10 @@
 <template>
-  <div class="WebCam">
-      <button v-on:click="loadCamera()">Camera</button>
-      <video autoplay="true" ref="Cam" id="webCamera"></video>
+  <div ref="content" class="WebCam">
+      <button v-on:click="takeSnapShot()" id="capture"></button>
+
+      <video autoplay="true" ref="Cam" id="webCamera">
+          
+      </video>
   </div>
 </template>
 
@@ -25,6 +28,15 @@ export default {
                     alert("Oooopps... Falhou :'(" + error);
                 });
             }
+      }, takeSnapShot : function(){
+          var video = this.$refs.Cam;
+          var canvas = document.createElement('canvas');
+          canvas.width = video.width;
+          canvas.height = video.height;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          this.$refs.content.appendChild(canvas);
+
       }
   }, mounted: function(){
         this.$nextTick(function () {
@@ -34,7 +46,41 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+    #cam{
+        height: 50px;
+   
+    }
+    .WebCam{
+        width: 50vh;
+        height: 50vh;
+        border:5px;
+        border-style: solid;
+        border-color: brown;
+        display:inline-block;
+        position:relative;
+    }
+    video{
+        width: 100%;
+        height: 100%;
+    }
+    #capture{
+        display: block;
+        bottom: 14vh;
+        border-radius: 50%;
+        min-width: 5vh;
+        min-height: 5vh;
+        height: 100px;
+        width: 100px;
+        max-width: 6vh;
+        max-height: 6vh;
+        background: red;
+        bottom: 10vh;
+        position:absolute;
+        bottom:8vh;
+        left:50%;
+        -webkit-transform:translate3d(-50%, -50%, 0);
+        -moz-transform:translate3d(-50%, -50%, 0);
+        transform:translate3d(-50%, -50%, 0);
+    }
 </style>
