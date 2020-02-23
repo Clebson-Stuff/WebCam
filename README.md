@@ -1,7 +1,7 @@
 # webcam
 
 ## About
-WebcamVue é a implementação de um câmera no VueJs, em  atualizações futuras pretende-se publicar no npm e aumentar a customização.
+WebcamVue é a implementação de uma câmera no VueJs, em  atualizações futuras pretende-se publicar no npm e aumentar a customização.
 
 ## Project setup
 ```
